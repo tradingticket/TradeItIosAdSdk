@@ -15,5 +15,3 @@ FOUNDATION_EXPORT double TradeItIosAdSdkVersionNumber;
 FOUNDATION_EXPORT const unsigned char TradeItIosAdSdkVersionString[];
 
 // In this header, you should import all the public headers of your framework using statements like #import <TradeItIosAdSdk/PublicHeader.h>
-
-

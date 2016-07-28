@@ -10,6 +10,7 @@
 		7517A39B1D4A945500D52880 /* TradeItIosAdSdk.h in Headers */ = {isa = PBXBuildFile; fileRef = 7517A39A1D4A945500D52880 /* TradeItIosAdSdk.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7517A3A21D4A945500D52880 /* TradeItIosAdSdk.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7517A3971D4A945500D52880 /* TradeItIosAdSdk.framework */; };
 		7517A3A71D4A945500D52880 /* TradeItIosAdSdkTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7517A3A61D4A945500D52880 /* TradeItIosAdSdkTests.swift */; };
+		7517A3B21D4A958600D52880 /* TradeItIosAdView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7517A3B11D4A958600D52880 /* TradeItIosAdView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -29,6 +30,7 @@
 		7517A3A11D4A945500D52880 /* TradeItIosAdSdkTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TradeItIosAdSdkTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		7517A3A61D4A945500D52880 /* TradeItIosAdSdkTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TradeItIosAdSdkTests.swift; sourceTree = "<group>"; };
 		7517A3A81D4A945500D52880 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		7517A3B11D4A958600D52880 /* TradeItIosAdView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TradeItIosAdView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -73,6 +75,7 @@
 			children = (
 				7517A39A1D4A945500D52880 /* TradeItIosAdSdk.h */,
 				7517A39C1D4A945500D52880 /* Info.plist */,
+				7517A3B11D4A958600D52880 /* TradeItIosAdView.swift */,
 			);
 			path = TradeItIosAdSdk;
 			sourceTree = "<group>";
@@ -194,6 +197,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7517A3B21D4A958600D52880 /* TradeItIosAdView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -238,6 +242,7 @@
 				COPY_PHASE_STRIP = NO;
 				CURRENT_PROJECT_VERSION = 1;
 				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEFINES_MODULE = YES;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -257,6 +262,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_MODULE_NAME = TradeItIosAdSdk;
 				SDKROOT = iphoneos;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -287,6 +293,7 @@
 				COPY_PHASE_STRIP = NO;
 				CURRENT_PROJECT_VERSION = 1;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEFINES_MODULE = YES;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -299,6 +306,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				MTL_ENABLE_DEBUG_INFO = NO;
+				PRODUCT_MODULE_NAME = TradeItIosAdSdk;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
@@ -310,32 +318,39 @@
 		7517A3AC1D4A945500D52880 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
 				INFOPLIST_FILE = TradeItIosAdSdk/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = TradeIt.TradeItIosAdSdk;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = "";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
 		};
 		7517A3AD1D4A945500D52880 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
 				INFOPLIST_FILE = TradeItIosAdSdk/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = TradeIt.TradeItIosAdSdk;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = "";
 			};
 			name = Release;
 		};
@@ -378,6 +393,7 @@
 				7517A3AD1D4A945500D52880 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		7517A3AE1D4A945500D52880 /* Build configuration list for PBXNativeTarget "TradeItIosAdSdkTests" */ = {
 			isa = XCConfigurationList;
@@ -386,6 +402,7 @@
 				7517A3B01D4A945500D52880 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
