@@ -41,9 +41,11 @@ public class TradeItIosAdView: UIView {
     }
 
     func loadAd() {
-        adService.getAd()
-        let url = NSURL(string: "http://localhost:8080/ad/v1/mobile/getAdUnit?placementId=17")
-        let requestObj = NSURLRequest(URL: url!)
-        webView.loadRequest(requestObj)
+        adService.getAd({ (ad: [String: AnyObject]) -> Void in
+            guard let url = ad["adUrl"] as? String else { return }
+            guard let nsurl = NSURL(string: url) else { return }
+            let requestObj = NSURLRequest(URL: nsurl)
+            self.webView.loadRequest(requestObj)
+        })
     }
 }

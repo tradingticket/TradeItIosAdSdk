@@ -3,7 +3,7 @@ import Foundation
 class AdService {
     let baseEndpoint = "http://localhost:8080/ad/v1"
     
-    func getAd() {
+    func getAd(success: [String: AnyObject] -> Void) {
         let endpoint = "\(baseEndpoint)/mobile/getAdInfo?apiKey=tradeit-test-api-key&location=general&os=ios8&device=iphone&modelNumber=6plus"
         guard let url = NSURL(string: endpoint) else {
             print("Error: URL is invalid")
@@ -25,17 +25,17 @@ class AdService {
             }
             
             do {
-                guard let adJSON = try NSJSONSerialization.JSONObjectWithData(responseData, options: []) as? [String: AnyObject] else {
-                    print("error trying to convert data to JSON")
+                guard let ad = try NSJSONSerialization.JSONObjectWithData(responseData, options: []) as? [String: AnyObject] else {
+                    print("Error: Parsing JSON failed")
                     return
                 }
-                print("Response: \(adJSON)")
+                print("Response: \(ad)")
+                success(ad)
             } catch {
                 print("Error: Parsing JSON failed")
                 return
             }
         }
         task.resume()
-        
     }
 }
