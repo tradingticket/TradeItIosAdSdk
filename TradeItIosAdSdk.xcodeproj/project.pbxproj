@@ -7,10 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		750FA0AD1D4AAD8800CE8753 /* TradeItIosAdView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 750FA0AC1D4AAD8800CE8753 /* TradeItIosAdView.xib */; };
+		750FA0AF1D4AAEE000CE8753 /* TradeItIosAdView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 750FA0AE1D4AAEE000CE8753 /* TradeItIosAdView.swift */; };
 		7517A39B1D4A945500D52880 /* TradeItIosAdSdk.h in Headers */ = {isa = PBXBuildFile; fileRef = 7517A39A1D4A945500D52880 /* TradeItIosAdSdk.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7517A3A21D4A945500D52880 /* TradeItIosAdSdk.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7517A3971D4A945500D52880 /* TradeItIosAdSdk.framework */; };
 		7517A3A71D4A945500D52880 /* TradeItIosAdSdkTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7517A3A61D4A945500D52880 /* TradeItIosAdSdkTests.swift */; };
-		7517A3B21D4A958600D52880 /* TradeItIosAdView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7517A3B11D4A958600D52880 /* TradeItIosAdView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -24,13 +25,14 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		750FA0AC1D4AAD8800CE8753 /* TradeItIosAdView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TradeItIosAdView.xib; sourceTree = "<group>"; };
+		750FA0AE1D4AAEE000CE8753 /* TradeItIosAdView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TradeItIosAdView.swift; sourceTree = "<group>"; };
 		7517A3971D4A945500D52880 /* TradeItIosAdSdk.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = TradeItIosAdSdk.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		7517A39A1D4A945500D52880 /* TradeItIosAdSdk.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TradeItIosAdSdk.h; sourceTree = "<group>"; };
 		7517A39C1D4A945500D52880 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		7517A3A11D4A945500D52880 /* TradeItIosAdSdkTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TradeItIosAdSdkTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		7517A3A61D4A945500D52880 /* TradeItIosAdSdkTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TradeItIosAdSdkTests.swift; sourceTree = "<group>"; };
 		7517A3A81D4A945500D52880 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		7517A3B11D4A958600D52880 /* TradeItIosAdView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TradeItIosAdView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -75,7 +77,8 @@
 			children = (
 				7517A39A1D4A945500D52880 /* TradeItIosAdSdk.h */,
 				7517A39C1D4A945500D52880 /* Info.plist */,
-				7517A3B11D4A958600D52880 /* TradeItIosAdView.swift */,
+				750FA0AC1D4AAD8800CE8753 /* TradeItIosAdView.xib */,
+				750FA0AE1D4AAEE000CE8753 /* TradeItIosAdView.swift */,
 			);
 			path = TradeItIosAdSdk;
 			sourceTree = "<group>";
@@ -180,6 +183,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				750FA0AD1D4AAD8800CE8753 /* TradeItIosAdView.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -197,7 +201,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7517A3B21D4A958600D52880 /* TradeItIosAdView.swift in Sources */,
+				750FA0AF1D4AAEE000CE8753 /* TradeItIosAdView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
