@@ -5,10 +5,10 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
     </dependencies>
     <objects>
-        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="TradeItIosAdView" customModule="TradeItIosAdSdk" customModuleProvider="target">
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="TradeItIosAdView" customModule="TradeItIosAdSdk">
             <connections>
-                <outlet property="view" destination="iN0-l3-epB" id="3PL-Rx-4cS"/>
-                <outlet property="webView" destination="3H9-cs-oiZ" id="2pA-gV-w8a"/>
+                <outlet property="view" destination="iN0-l3-epB" id="gtZ-bY-BOn"/>
+                <outlet property="webView" destination="3H9-cs-oiZ" id="8z2-LL-DYA"/>
             </connections>
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
@@ -31,7 +31,7 @@
             </constraints>
             <nil key="simulatedStatusBarMetrics"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-            <point key="canvasLocation" x="350" y="251"/>
+            <point key="canvasLocation" x="169" y="251"/>
         </view>
     </objects>
 </document>

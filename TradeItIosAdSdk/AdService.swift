@@ -1,25 +1,53 @@
 import Foundation
 
-enum TradeItError: ErrorType {
+enum TradeItAdError: ErrorType {
     case RequestError(String)
     case JSONParseError
     case UnknownError
 }
 
+@objc public enum TradeItAdLocation: Int {
+    case General
+    case Account
+    case Ticket
+    // Have to use this instead of enum TradeItAdLocation: String to support ObjC
+    func toString() -> String {
+        switch self {
+        case .Account: return "account"
+        case .General: return "general"
+        case .Ticket: return "ticket"
+        }
+    }
+}
+
 enum Response {
     case Success([String: AnyObject])
-    case Failure(TradeItError)
+    case Failure(TradeItAdError)
 }
 
 class AdService {
-    let baseEndpoint = "http://localhost:8080/ad/v1"
-    
-    func getAd(callback: Response -> Void) {
-        let endpoint = "\(baseEndpoint)/mobile/getAdInfo?apiKey=tradeit-test-api-key&location=general&os=ios8&device=iphone&modelNumber=6plus"
-        guard let url = NSURL(string: endpoint) else {
-            return callback(.Failure(.RequestError("Endpoint is invalid: \(endpoint)")))
+    let urlComponents = NSURLComponents()
+    let apiKey: String
+
+    init(apiKey: String) {
+        self.apiKey = apiKey
+        urlComponents.scheme = "http"
+        urlComponents.host = "localhost"
+        urlComponents.port = 8080
+        urlComponents.path = "/ad/v1/mobile/getAdInfo"
+    }
+
+    func getAd(location: TradeItAdLocation, callback: Response -> Void) {
+        urlComponents.queryItems = [
+            NSURLQueryItem(name: "apiKey", value: apiKey),
+            NSURLQueryItem(name: "location", value: location.toString()),
+            NSURLQueryItem(name: "os", value: os()),
+            NSURLQueryItem(name: "device", value: device()),
+        ]
+        guard let url = urlComponents.URL else {
+            return callback(.Failure(.RequestError("Endpoint is invalid: \(urlComponents.string)")))
         }
-        
+
         let urlRequest = NSURLRequest(URL: url)
         let config = NSURLSessionConfiguration.defaultSessionConfiguration()
         let session = NSURLSession(configuration: config)
@@ -44,5 +72,19 @@ class AdService {
             }
         }
         task.resume()
+    }
+
+    func device() -> String {
+        var systemInfo = utsname()
+        uname(&systemInfo)
+        let machineMirror = Mirror(reflecting: systemInfo.machine)
+        return machineMirror.children.reduce("") { identifier, element in
+            guard let value = element.value as? Int8 where value != 0 else { return identifier }
+            return identifier + String(UnicodeScalar(UInt8(value)))
+        }
+    }
+
+    func os() -> String {
+        return UIDevice.currentDevice().systemVersion
     }
 }
