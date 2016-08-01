@@ -2,6 +2,7 @@ import UIKit
 
 class WebViewDelegate: NSObject, UIWebViewDelegate {
     @objc func webView(webView: UIWebView, shouldStartLoadWithRequest request: NSURLRequest, navigationType: UIWebViewNavigationType) -> Bool {
+        // Clicking on the ad doesn't trigger a navigationType = .LinkClicked
         guard let url = request.URL else { return true }
         if url.host == "adclick.g.doubleclick.net" {
             UIApplication.sharedApplication().openURL(url)
@@ -32,8 +33,6 @@ public class TradeItIosAdView: UIView {
         webView.scrollView.bounces = false
         webView.delegate = webViewDelegate
         addSubview(view)
-//        var device = UIDevice.currentDevice().
-//        print(device)
     }
 
     func loadViewFromNib() -> UIView {
@@ -41,11 +40,17 @@ public class TradeItIosAdView: UIView {
     }
 
     func loadAd() {
-        adService.getAd({ (ad: [String: AnyObject]) -> Void in
-            guard let url = ad["adUrl"] as? String else { return }
-            guard let nsurl = NSURL(string: url) else { return }
-            let requestObj = NSURLRequest(URL: nsurl)
-            self.webView.loadRequest(requestObj)
+        adService.getAd({ (response: Response) -> Void in
+            switch response {
+            case let .Success(ad):
+                print(ad)
+                guard let url = ad["adUrl"] as? String else { return }
+                guard let nsurl = NSURL(string: url) else { return }
+                let requestObj = NSURLRequest(URL: nsurl)
+                self.webView.loadRequest(requestObj)
+            case let .Failure(error):
+                print("Error: \(error)")
+            }
         })
     }
 }
