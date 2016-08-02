@@ -11,19 +11,33 @@ public class TradeItAdView: UIView {
         xibSetup()
     }
 
+    // Helper for ObjC because it does not support default parameters
     public func initializeWithApiKey(apiKey: String, location: String, broker: String) {
+        initializeWithApiKey(apiKey, location: location, broker: broker, heightConstraint: nil)
+    }
+
+    public func initializeWithApiKey(apiKey: String, location: String, broker: String, heightConstraint: NSLayoutConstraint? = nil) {
         let adService = AdService(apiKey: apiKey)
 
+        let collapseHeightConstraintTo = { (height: CGFloat) -> Void in
+            guard let heightConstraint = heightConstraint else { return }
+            dispatch_async(dispatch_get_main_queue(), {
+                heightConstraint.constant = height
+            })
+        }
         adService.getAdForLocation(location, broker:broker, callback: { (response: Response) -> Void in
             switch response {
             case let .Success(ad):
                 print(ad)
                 guard let url = ad["adUrl"] as? String else { return }
                 guard let nsurl = NSURL(string: url) else { return }
+                guard let height = ad["adHeight"] as? CGFloat else { return }
                 let requestObj = NSURLRequest(URL: nsurl)
                 self.webView.loadRequest(requestObj)
+                collapseHeightConstraintTo(height)
             case let .Failure(error):
                 print("Error: \(error)")
+                collapseHeightConstraintTo(0)
             }
         })
     }
