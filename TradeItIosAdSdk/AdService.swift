@@ -1,25 +1,5 @@
 import Foundation
 
-enum TradeItAdError: ErrorType {
-    case RequestError(String)
-    case JSONParseError
-    case UnknownError
-}
-
-@objc public enum TradeItAdLocation: Int {
-    case General
-    case Account
-    case Ticket
-    // Have to use this instead of enum TradeItAdLocation: String to support ObjC
-    func toString() -> String {
-        switch self {
-        case .Account: return "account"
-        case .General: return "general"
-        case .Ticket: return "ticket"
-        }
-    }
-}
-
 enum Response {
     case Success([String: AnyObject])
     case Failure(TradeItAdError)
@@ -37,12 +17,13 @@ class AdService {
         urlComponents.path = "/ad/v1/mobile/getAdInfo"
     }
 
-    func getAd(location: TradeItAdLocation, callback: Response -> Void) {
+    func getAdForLocation(location: String, broker: String, callback: Response -> Void) {
         urlComponents.queryItems = [
             NSURLQueryItem(name: "apiKey", value: apiKey),
-            NSURLQueryItem(name: "location", value: location.toString()),
+            NSURLQueryItem(name: "location", value: location),
             NSURLQueryItem(name: "os", value: os()),
             NSURLQueryItem(name: "device", value: device()),
+            NSURLQueryItem(name: "broker", value: broker)
         ]
         guard let url = urlComponents.URL else {
             return callback(.Failure(.RequestError("Endpoint is invalid: \(urlComponents.string)")))

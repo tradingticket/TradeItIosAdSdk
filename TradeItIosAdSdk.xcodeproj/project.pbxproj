@@ -7,12 +7,13 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		750FA0AD1D4AAD8800CE8753 /* TradeItIosAdView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 750FA0AC1D4AAD8800CE8753 /* TradeItIosAdView.xib */; };
-		750FA0AF1D4AAEE000CE8753 /* TradeItIosAdView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 750FA0AE1D4AAEE000CE8753 /* TradeItIosAdView.swift */; };
+		750FA0AD1D4AAD8800CE8753 /* TradeItAdView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 750FA0AC1D4AAD8800CE8753 /* TradeItAdView.xib */; };
+		750FA0AF1D4AAEE000CE8753 /* TradeItAdView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 750FA0AE1D4AAEE000CE8753 /* TradeItAdView.swift */; };
 		750FA0BC1D4BB6AA00CE8753 /* AdService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 750FA0BB1D4BB6AA00CE8753 /* AdService.swift */; };
 		7517A39B1D4A945500D52880 /* TradeItIosAdSdk.h in Headers */ = {isa = PBXBuildFile; fileRef = 7517A39A1D4A945500D52880 /* TradeItIosAdSdk.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7517A3A21D4A945500D52880 /* TradeItIosAdSdk.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7517A3971D4A945500D52880 /* TradeItIosAdSdk.framework */; };
 		7517A3A71D4A945500D52880 /* TradeItIosAdSdkTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7517A3A61D4A945500D52880 /* TradeItIosAdSdkTests.swift */; };
+		758929C21D50E841004DC908 /* TradeItAdError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 758929C11D50E841004DC908 /* TradeItAdError.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -26,8 +27,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		750FA0AC1D4AAD8800CE8753 /* TradeItIosAdView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TradeItIosAdView.xib; sourceTree = "<group>"; };
-		750FA0AE1D4AAEE000CE8753 /* TradeItIosAdView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TradeItIosAdView.swift; sourceTree = "<group>"; };
+		750FA0AC1D4AAD8800CE8753 /* TradeItAdView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TradeItAdView.xib; sourceTree = "<group>"; };
+		750FA0AE1D4AAEE000CE8753 /* TradeItAdView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TradeItAdView.swift; sourceTree = "<group>"; };
 		750FA0BB1D4BB6AA00CE8753 /* AdService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AdService.swift; sourceTree = "<group>"; };
 		7517A3971D4A945500D52880 /* TradeItIosAdSdk.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = TradeItIosAdSdk.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		7517A39A1D4A945500D52880 /* TradeItIosAdSdk.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TradeItIosAdSdk.h; sourceTree = "<group>"; };
@@ -35,6 +36,7 @@
 		7517A3A11D4A945500D52880 /* TradeItIosAdSdkTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TradeItIosAdSdkTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		7517A3A61D4A945500D52880 /* TradeItIosAdSdkTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TradeItIosAdSdkTests.swift; sourceTree = "<group>"; };
 		7517A3A81D4A945500D52880 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		758929C11D50E841004DC908 /* TradeItAdError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TradeItAdError.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -88,8 +90,9 @@
 				750FA0BA1D4BB68000CE8753 /* Services */,
 				7517A39A1D4A945500D52880 /* TradeItIosAdSdk.h */,
 				7517A39C1D4A945500D52880 /* Info.plist */,
-				750FA0AC1D4AAD8800CE8753 /* TradeItIosAdView.xib */,
-				750FA0AE1D4AAEE000CE8753 /* TradeItIosAdView.swift */,
+				750FA0AC1D4AAD8800CE8753 /* TradeItAdView.xib */,
+				750FA0AE1D4AAEE000CE8753 /* TradeItAdView.swift */,
+				758929C11D50E841004DC908 /* TradeItAdError.swift */,
 			);
 			path = TradeItIosAdSdk;
 			sourceTree = "<group>";
@@ -194,7 +197,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				750FA0AD1D4AAD8800CE8753 /* TradeItIosAdView.xib in Resources */,
+				750FA0AD1D4AAD8800CE8753 /* TradeItAdView.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -213,7 +216,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				750FA0BC1D4BB6AA00CE8753 /* AdService.swift in Sources */,
-				750FA0AF1D4AAEE000CE8753 /* TradeItIosAdView.swift in Sources */,
+				758929C21D50E841004DC908 /* TradeItAdError.swift in Sources */,
+				750FA0AF1D4AAEE000CE8753 /* TradeItAdView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
