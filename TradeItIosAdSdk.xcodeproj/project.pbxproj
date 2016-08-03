@@ -13,6 +13,8 @@
 		7517A39B1D4A945500D52880 /* TradeItIosAdSdk.h in Headers */ = {isa = PBXBuildFile; fileRef = 7517A39A1D4A945500D52880 /* TradeItIosAdSdk.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7517A3A21D4A945500D52880 /* TradeItIosAdSdk.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7517A3971D4A945500D52880 /* TradeItIosAdSdk.framework */; };
 		7517A3A71D4A945500D52880 /* TradeItIosAdSdkTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7517A3A61D4A945500D52880 /* TradeItIosAdSdkTests.swift */; };
+		751A50661D527BE70091A171 /* TradeItAdConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 751A50651D527BE70091A171 /* TradeItAdConfig.swift */; };
+		751A50681D527C040091A171 /* TradeItAdEnvironment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 751A50671D527C040091A171 /* TradeItAdEnvironment.swift */; };
 		758929C21D50E841004DC908 /* TradeItAdError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 758929C11D50E841004DC908 /* TradeItAdError.swift */; };
 /* End PBXBuildFile section */
 
@@ -36,6 +38,8 @@
 		7517A3A11D4A945500D52880 /* TradeItIosAdSdkTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TradeItIosAdSdkTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		7517A3A61D4A945500D52880 /* TradeItIosAdSdkTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TradeItIosAdSdkTests.swift; sourceTree = "<group>"; };
 		7517A3A81D4A945500D52880 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		751A50651D527BE70091A171 /* TradeItAdConfig.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TradeItAdConfig.swift; sourceTree = "<group>"; };
+		751A50671D527C040091A171 /* TradeItAdEnvironment.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TradeItAdEnvironment.swift; sourceTree = "<group>"; };
 		758929C11D50E841004DC908 /* TradeItAdError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TradeItAdError.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -93,6 +97,8 @@
 				750FA0AC1D4AAD8800CE8753 /* TradeItAdView.xib */,
 				750FA0AE1D4AAEE000CE8753 /* TradeItAdView.swift */,
 				758929C11D50E841004DC908 /* TradeItAdError.swift */,
+				751A50651D527BE70091A171 /* TradeItAdConfig.swift */,
+				751A50671D527C040091A171 /* TradeItAdEnvironment.swift */,
 			);
 			path = TradeItIosAdSdk;
 			sourceTree = "<group>";
@@ -215,7 +221,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				751A50661D527BE70091A171 /* TradeItAdConfig.swift in Sources */,
 				750FA0BC1D4BB6AA00CE8753 /* AdService.swift in Sources */,
+				751A50681D527C040091A171 /* TradeItAdEnvironment.swift in Sources */,
 				758929C21D50E841004DC908 /* TradeItAdError.swift in Sources */,
 				750FA0AF1D4AAEE000CE8753 /* TradeItAdView.swift in Sources */,
 			);

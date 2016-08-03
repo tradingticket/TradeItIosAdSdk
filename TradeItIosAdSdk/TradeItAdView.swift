@@ -1,32 +1,11 @@
 import UIKit
 
-@objc public enum TradeItAdEnvironment: Int {
-    case Production
-    case QA
-    case Local
-}
-
-@objc public class TradeItAdConfig: NSObject {
-    let apiKey: String
-    let baseUrl: String
-
-    public init(apiKey: String, environment: TradeItAdEnvironment) {
-        self.apiKey = apiKey
-        self.baseUrl = {
-            switch environment {
-            case .Production: return "https://ems.tradingticket.com/ad/v1/"
-            case .QA: return "https://ems.qa.tradingticket.com/ad/v1/"
-            default: return "http://localhost:8080/ad/v1/"
-            }
-        }()
-    }
-}
-
 public class TradeItAdView: UIView {
     @IBOutlet var webView: UIWebView!
     @IBOutlet var view: UIView!
 
     let webViewDelegate: WebViewDelegate = WebViewDelegate()
+    let adService = AdService()
 
     public required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
@@ -34,13 +13,11 @@ public class TradeItAdView: UIView {
     }
 
     // Helper for ObjC because it does not support default parameters
-    public func initWithConfig(config: TradeItAdConfig, location: String, broker: String) {
-        initWithConfig(config, location: location, broker: broker, heightConstraint: nil)
+    public func initializeWithAdType(adType: String) {
+        initializeWithAdType(adType, heightConstraint: nil)
     }
 
-    public func initWithConfig(config: TradeItAdConfig, location: String, broker: String, heightConstraint: NSLayoutConstraint? = nil) {
-        let adService = AdService(config: config)
-
+    public func initializeWithAdType(adType: String, heightConstraint: NSLayoutConstraint?) {
         let collapseHeightConstraintTo = { (height: CGFloat) -> Void in
             guard let heightConstraint = heightConstraint else { return }
             dispatch_async(dispatch_get_main_queue(), {
@@ -48,7 +25,7 @@ public class TradeItAdView: UIView {
             })
         }
 
-        adService.getAdForLocation(location, broker:broker, callback: { (response: Response) -> Void in
+        adService.getAdForAdType(adType, callback: { (response: Response) -> Void in
             switch response {
             case let .Success(ad):
                 print(ad)

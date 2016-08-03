@@ -6,26 +6,18 @@ enum Response {
 }
 
 class AdService {
-    let urlComponents: NSURLComponents?
-    let config: TradeItAdConfig
-
-    init(config: TradeItAdConfig) {
-        self.config = config
-        urlComponents = NSURLComponents(string: config.baseUrl + "mobile/getAdInfo")
-    }
-
-    func getAdForLocation(location: String, broker: String, callback: Response -> Void) {
-        guard let urlComponents = urlComponents else { return callback(.Failure(.RequestError("BaseURL is invalid: \(self.config.baseUrl)"))) }
-        urlComponents.queryItems = [
-            NSURLQueryItem(name: "apiKey", value: self.config.apiKey),
-            NSURLQueryItem(name: "location", value: location),
+    func getAdForAdType(adType: String, callback: Response -> Void) {
+        guard let apiKey = TradeItAdConfig.apiKey else { return callback(.Failure(.MissingConfig("TradeItAdConfig.apiKey is not set"))) }
+        let endpoint = TradeItAdConfig.baseUrl + "mobile/getAdInfo"
+        let urlBuilderOptional = NSURLComponents(string: endpoint)
+        guard let urlBuilder = urlBuilderOptional else { return callback(.Failure(.RequestError("BaseURL + path is invalid: \(endpoint)"))) }
+        urlBuilder.queryItems = [
+            NSURLQueryItem(name: "apiKey", value: apiKey),
+            NSURLQueryItem(name: "location", value: adType),
             NSURLQueryItem(name: "os", value: os()),
-            NSURLQueryItem(name: "device", value: device()),
-            NSURLQueryItem(name: "broker", value: broker)
+            NSURLQueryItem(name: "device", value: device())
         ]
-        guard let url = urlComponents.URL else {
-            return callback(.Failure(.RequestError("Endpoint is invalid: \(urlComponents.string)")))
-        }
+        guard let url = urlBuilder.URL else { return callback(.Failure(.RequestError("Endpoint is invalid: \(urlBuilder.string)"))) }
 
         let urlRequest = NSURLRequest(URL: url)
         let config = NSURLSessionConfiguration.defaultSessionConfiguration()
