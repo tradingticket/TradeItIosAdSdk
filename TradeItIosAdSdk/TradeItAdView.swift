@@ -1,5 +1,27 @@
 import UIKit
 
+@objc public enum TradeItAdEnvironment: Int {
+    case Production
+    case QA
+    case Local
+}
+
+@objc public class TradeItAdConfig: NSObject {
+    let apiKey: String
+    let baseUrl: String
+
+    public init(apiKey: String, environment: TradeItAdEnvironment) {
+        self.apiKey = apiKey
+        self.baseUrl = {
+            switch environment {
+            case .Production: return "https://ems.tradingticket.com/ad/v1/"
+            case .QA: return "https://ems.qa.tradingticket.com/ad/v1/"
+            default: return "http://localhost:8080/ad/v1/"
+            }
+        }()
+    }
+}
+
 public class TradeItAdView: UIView {
     @IBOutlet var webView: UIWebView!
     @IBOutlet var view: UIView!
@@ -12,12 +34,12 @@ public class TradeItAdView: UIView {
     }
 
     // Helper for ObjC because it does not support default parameters
-    public func initializeWithApiKey(apiKey: String, location: String, broker: String) {
-        initializeWithApiKey(apiKey, location: location, broker: broker, heightConstraint: nil)
+    public func initWithConfig(config: TradeItAdConfig, location: String, broker: String) {
+        initWithConfig(config, location: location, broker: broker, heightConstraint: nil)
     }
 
-    public func initializeWithApiKey(apiKey: String, location: String, broker: String, heightConstraint: NSLayoutConstraint? = nil) {
-        let adService = AdService(apiKey: apiKey)
+    public func initWithConfig(config: TradeItAdConfig, location: String, broker: String, heightConstraint: NSLayoutConstraint? = nil) {
+        let adService = AdService(config: config)
 
         let collapseHeightConstraintTo = { (height: CGFloat) -> Void in
             guard let heightConstraint = heightConstraint else { return }
@@ -25,6 +47,7 @@ public class TradeItAdView: UIView {
                 heightConstraint.constant = height
             })
         }
+
         adService.getAdForLocation(location, broker:broker, callback: { (response: Response) -> Void in
             switch response {
             case let .Success(ad):

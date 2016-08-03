@@ -6,20 +6,18 @@ enum Response {
 }
 
 class AdService {
-    let urlComponents = NSURLComponents()
-    let apiKey: String
+    let urlComponents: NSURLComponents?
+    let config: TradeItAdConfig
 
-    init(apiKey: String) {
-        self.apiKey = apiKey
-        urlComponents.scheme = "http"
-        urlComponents.host = "localhost"
-        urlComponents.port = 8080
-        urlComponents.path = "/ad/v1/mobile/getAdInfo"
+    init(config: TradeItAdConfig) {
+        self.config = config
+        urlComponents = NSURLComponents(string: config.baseUrl + "mobile/getAdInfo")
     }
 
     func getAdForLocation(location: String, broker: String, callback: Response -> Void) {
+        guard let urlComponents = urlComponents else { return callback(.Failure(.RequestError("BaseURL is invalid: \(self.config.baseUrl)"))) }
         urlComponents.queryItems = [
-            NSURLQueryItem(name: "apiKey", value: apiKey),
+            NSURLQueryItem(name: "apiKey", value: self.config.apiKey),
             NSURLQueryItem(name: "location", value: location),
             NSURLQueryItem(name: "os", value: os()),
             NSURLQueryItem(name: "device", value: device()),
