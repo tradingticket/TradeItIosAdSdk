@@ -14,10 +14,14 @@ public class TradeItAdView: UIView {
 
     // Helper for ObjC because it does not support default parameters
     public func initializeWithAdType(adType: String) {
-        initializeWithAdType(adType, heightConstraint: nil)
+        initializeWithAdType(adType, broker: nil, heightConstraint: nil)
     }
 
     public func initializeWithAdType(adType: String, heightConstraint: NSLayoutConstraint?) {
+        initializeWithAdType(adType, broker: nil, heightConstraint: heightConstraint)
+    }
+
+    public func initializeWithAdType(adType: String, broker: String? = nil, heightConstraint: NSLayoutConstraint?) {
         let collapseHeightConstraintTo = { (height: CGFloat) -> Void in
             guard let heightConstraint = heightConstraint else { return }
             dispatch_async(dispatch_get_main_queue(), {
@@ -25,10 +29,9 @@ public class TradeItAdView: UIView {
             })
         }
 
-        adService.getAdForAdType(adType, callback: { (response: Response) -> Void in
+        adService.getAdForAdType(adType, broker: broker, callback: { (response: Result) -> Void in
             switch response {
             case let .Success(ad):
-                print(ad)
                 guard let url = ad["adUrl"] as? String else { return }
                 guard let nsurl = NSURL(string: url) else { return }
                 guard let height = ad["adHeight"] as? CGFloat else { return }
@@ -36,7 +39,7 @@ public class TradeItAdView: UIView {
                 self.webView.loadRequest(requestObj)
                 collapseHeightConstraintTo(height)
             case let .Failure(error):
-                print("Error: \(error)")
+                TradeItAdConfig.log("\(error)")
                 collapseHeightConstraintTo(0)
             }
         })

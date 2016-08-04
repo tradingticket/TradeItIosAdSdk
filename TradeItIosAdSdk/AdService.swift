@@ -1,25 +1,32 @@
 import Foundation
 
-enum Response {
+enum Result {
     case Success([String: AnyObject])
     case Failure(TradeItAdError)
 }
 
 class AdService {
-    func getAdForAdType(adType: String, callback: Response -> Void) {
-        guard let apiKey = TradeItAdConfig.apiKey else { return callback(.Failure(.MissingConfig("TradeItAdConfig.apiKey is not set"))) }
-        let endpoint = TradeItAdConfig.baseUrl + "mobile/getAdInfo"
+    static var ads: [String: AnyObject]?
+
+    static func getAllAds(callback: Result -> Void) {
+        if let ads = ads {
+            return callback(.Success(ads))
+        }
+
+        guard let apiKey = TradeItAdConfig.apiKey else { return }
+        let endpoint = TradeItAdConfig.baseUrl + "mobile/getAllAdsInfo"
         let urlBuilderOptional = NSURLComponents(string: endpoint)
-        guard let url = urlBuilderOptional?.URL else { return callback(.Failure(.RequestError("BaseURL + path is invalid: \(endpoint)"))) }
+        guard let url = urlBuilderOptional?.URL else { return }
         let object: NSDictionary = [
             "apiKey": apiKey,
             "users": TradeItAdConfig.users,
-            "device": device(),
-            "location": adType,
+            "device": getDevice(),
+            "modelNumber": modelNumber(),
             "os": os()
         ]
         let config = NSURLSessionConfiguration.defaultSessionConfiguration()
         let session = NSURLSession(configuration: config)
+
         let request = NSMutableURLRequest(URL: url)
         request.HTTPMethod = "POST"
         request.setValue("application/json", forHTTPHeaderField: "Accept")
@@ -27,28 +34,50 @@ class AdService {
         request.HTTPBody = toJSON(object)
 
         let task = session.dataTaskWithRequest(request) { (data, response, error) in
-            if let error = error {
-                return callback(.Failure(.RequestError(error.localizedDescription)))
-            }
-            guard let responseData = data else {
-                return callback(.Failure(.JSONParseError))
-            }
+            if let error = error { return TradeItAdConfig.log(error.localizedDescription) }
+            guard let responseData = data else { return TradeItAdConfig.log("Failed to read response") }
 
             do {
-                guard let ad = try NSJSONSerialization.JSONObjectWithData(responseData, options: []) as? [String: AnyObject] else {
-                    return callback(.Failure(.JSONParseError))
-                }
-
-                callback(.Success(ad))
-            } catch let error {
-                print(error)
+                let jsonResponse = try NSJSONSerialization.JSONObjectWithData(responseData, options: []) as? [String: AnyObject]
+                ads = jsonResponse?["admap"] as? [String: AnyObject]
+                guard let ads = ads else { return callback(.Failure(.JSONParseError)) }
+                TradeItAdConfig.log("\(ads)")
+                callback(.Success(ads))
+            } catch {
                 callback(.Failure(.UnknownError))
             }
         }
         task.resume()
     }
 
-    func device() -> String {
+    func getAdForAdType(adType: String, broker: String?, callback: Result -> Void) {
+        AdService.getAllAds({(result: Result) in
+            switch result {
+            case let .Success(ads):
+                guard let adsForType = ads[adType] as? [String: AnyObject] else { return callback(.Failure(.UnknownError)) }
+                let broker = broker ?? "all"
+                guard let adForBroker = adsForType[broker] as? [String: AnyObject] else { return callback(.Failure(.UnknownError)) }
+                callback(.Success(adForBroker))
+            case let .Failure(error):
+                callback(.Failure(error))
+            }
+        })
+    }
+
+    static func modelNumber() -> String {
+        let device = getDevice()
+
+        do {
+            let regex = try NSRegularExpression(pattern: "(\\d.*)", options: [])
+            let nsString = device as NSString
+            let results = regex.matchesInString(device, options: [], range: NSMakeRange(0, nsString.length))
+            return results.map { nsString.substringWithRange($0.range) }.joinWithSeparator("")
+        } catch {
+            return device
+        }
+    }
+
+    static func getDevice() -> String {
         var systemInfo = utsname()
         uname(&systemInfo)
         let machineMirror = Mirror(reflecting: systemInfo.machine)
@@ -58,15 +87,15 @@ class AdService {
         }
     }
 
-    func os() -> String {
+    static func os() -> String {
         return UIDevice.currentDevice().systemVersion
     }
 
-    func toJSON(object: NSDictionary) -> NSData {
+    static func toJSON(object: NSDictionary) -> NSData {
         do {
             return try NSJSONSerialization.dataWithJSONObject(object, options: .PrettyPrinted)
         } catch {
-            print("Error!")
+            TradeItAdConfig.log("Error: Serializing data to JSON failed")
             return NSData()
         }
     }
