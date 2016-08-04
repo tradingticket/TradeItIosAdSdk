@@ -3,6 +3,7 @@
     public static var users: [[String: String]] = []
     public static var environment = TradeItAdEnvironment.QA
     public static var debug = false
+    public static var deviceInfoOverride: String?
 
     static var baseUrl: String {
         switch environment {

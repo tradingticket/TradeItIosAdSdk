@@ -7,11 +7,10 @@ enum Result {
 
 class AdService {
     static var ads: [String: AnyObject]?
+    static var deviceInfo: String?
 
     static func getAllAds(callback: Result -> Void) {
-        if let ads = ads {
-            return callback(.Success(ads))
-        }
+        if let ads = ads { return callback(.Success(ads)) }
 
         guard let apiKey = TradeItAdConfig.apiKey else { return }
         let endpoint = TradeItAdConfig.baseUrl + "mobile/getAllAdsInfo"
@@ -20,7 +19,7 @@ class AdService {
         let object: NSDictionary = [
             "apiKey": apiKey,
             "users": TradeItAdConfig.users,
-            "device": getDevice(),
+            "device": device(),
             "modelNumber": modelNumber(),
             "os": os()
         ]
@@ -50,8 +49,8 @@ class AdService {
         task.resume()
     }
 
-    func getAdForAdType(adType: String, broker: String?, callback: Result -> Void) {
-        AdService.getAllAds({(result: Result) in
+    static func getAdForAdType(adType: String, broker: String?, callback: Result -> Void) {
+        getAllAds({(result: Result) in
             switch result {
             case let .Success(ads):
                 guard let adsForType = ads[adType] as? [String: AnyObject] else { return callback(.Failure(.UnknownError)) }
@@ -65,26 +64,32 @@ class AdService {
     }
 
     static func modelNumber() -> String {
-        let device = getDevice()
-
         do {
             let regex = try NSRegularExpression(pattern: "(\\d.*)", options: [])
-            let nsString = device as NSString
-            let results = regex.matchesInString(device, options: [], range: NSMakeRange(0, nsString.length))
+            let nsString = getDeviceInfo() as NSString
+            let results = regex.matchesInString(getDeviceInfo(), options: [], range: NSMakeRange(0, nsString.length))
             return results.map { nsString.substringWithRange($0.range) }.joinWithSeparator("")
         } catch {
-            return device
+            return getDeviceInfo()
         }
     }
 
-    static func getDevice() -> String {
+    static func device() -> String {
+        return getDeviceInfo().stringByReplacingOccurrencesOfString(modelNumber(), withString: "")
+    }
+
+    static func getDeviceInfo() -> String {
+        if let override = TradeItAdConfig.deviceInfoOverride { return override }
+        if let deviceInfo = self.deviceInfo { return deviceInfo }
+
         var systemInfo = utsname()
         uname(&systemInfo)
         let machineMirror = Mirror(reflecting: systemInfo.machine)
-        return machineMirror.children.reduce("") { identifier, element in
+        let deviceInfo = machineMirror.children.reduce("") { identifier, element in
             guard let value = element.value as? Int8 where value != 0 else { return identifier }
             return identifier + String(UnicodeScalar(UInt8(value)))
         }
+        return deviceInfo
     }
 
     static func os() -> String {

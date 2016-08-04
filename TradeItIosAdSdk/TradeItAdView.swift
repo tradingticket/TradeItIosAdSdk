@@ -5,7 +5,6 @@ public class TradeItAdView: UIView {
     @IBOutlet var view: UIView!
 
     let webViewDelegate: WebViewDelegate = WebViewDelegate()
-    let adService = AdService()
 
     public required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
@@ -29,7 +28,7 @@ public class TradeItAdView: UIView {
             })
         }
 
-        adService.getAdForAdType(adType, broker: broker, callback: { (response: Result) -> Void in
+        AdService.getAdForAdType(adType, broker: broker, callback: { (response: Result) -> Void in
             switch response {
             case let .Success(ad):
                 guard let url = ad["adUrl"] as? String else { return }
