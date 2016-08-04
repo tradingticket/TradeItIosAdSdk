@@ -12,23 +12,25 @@ public class TradeItAdView: UIView {
     }
 
     // Helper for ObjC because it does not support default parameters
-    public func initializeWithApiKey(apiKey: String, location: String, broker: String) {
-        initializeWithApiKey(apiKey, location: location, broker: broker, heightConstraint: nil)
+    public func initializeWithAdType(adType: String) {
+        initializeWithAdType(adType, broker: nil, heightConstraint: nil)
     }
 
-    public func initializeWithApiKey(apiKey: String, location: String, broker: String, heightConstraint: NSLayoutConstraint? = nil) {
-        let adService = AdService(apiKey: apiKey)
+    public func initializeWithAdType(adType: String, heightConstraint: NSLayoutConstraint?) {
+        initializeWithAdType(adType, broker: nil, heightConstraint: heightConstraint)
+    }
 
+    public func initializeWithAdType(adType: String, broker: String? = nil, heightConstraint: NSLayoutConstraint?) {
         let collapseHeightConstraintTo = { (height: CGFloat) -> Void in
             guard let heightConstraint = heightConstraint else { return }
             dispatch_async(dispatch_get_main_queue(), {
                 heightConstraint.constant = height
             })
         }
-        adService.getAdForLocation(location, broker:broker, callback: { (response: Response) -> Void in
+
+        AdService.getAdForAdType(adType, broker: broker, callback: { (response: Result) -> Void in
             switch response {
             case let .Success(ad):
-                print(ad)
                 guard let url = ad["adUrl"] as? String else { return }
                 guard let nsurl = NSURL(string: url) else { return }
                 guard let height = ad["adHeight"] as? CGFloat else { return }
@@ -36,7 +38,7 @@ public class TradeItAdView: UIView {
                 self.webView.loadRequest(requestObj)
                 collapseHeightConstraintTo(height)
             case let .Failure(error):
-                print("Error: \(error)")
+                TradeItAdConfig.log("\(error)")
                 collapseHeightConstraintTo(0)
             }
         })
