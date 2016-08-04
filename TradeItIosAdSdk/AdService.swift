@@ -10,20 +10,23 @@ class AdService {
         guard let apiKey = TradeItAdConfig.apiKey else { return callback(.Failure(.MissingConfig("TradeItAdConfig.apiKey is not set"))) }
         let endpoint = TradeItAdConfig.baseUrl + "mobile/getAdInfo"
         let urlBuilderOptional = NSURLComponents(string: endpoint)
-        guard let urlBuilder = urlBuilderOptional else { return callback(.Failure(.RequestError("BaseURL + path is invalid: \(endpoint)"))) }
-        urlBuilder.queryItems = [
-            NSURLQueryItem(name: "apiKey", value: apiKey),
-            NSURLQueryItem(name: "location", value: adType),
-            NSURLQueryItem(name: "os", value: os()),
-            NSURLQueryItem(name: "device", value: device())
+        guard let url = urlBuilderOptional?.URL else { return callback(.Failure(.RequestError("BaseURL + path is invalid: \(endpoint)"))) }
+        let object: NSDictionary = [
+            "apiKey": apiKey,
+            "users": TradeItAdConfig.users,
+            "device": device(),
+            "location": adType,
+            "os": os()
         ]
-        guard let url = urlBuilder.URL else { return callback(.Failure(.RequestError("Endpoint is invalid: \(urlBuilder.string)"))) }
-
-        let urlRequest = NSURLRequest(URL: url)
         let config = NSURLSessionConfiguration.defaultSessionConfiguration()
         let session = NSURLSession(configuration: config)
-        
-        let task = session.dataTaskWithRequest(urlRequest) { (data, response, error) in
+        let request = NSMutableURLRequest(URL: url)
+        request.HTTPMethod = "POST"
+        request.setValue("application/json", forHTTPHeaderField: "Accept")
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.HTTPBody = toJSON(object)
+
+        let task = session.dataTaskWithRequest(request) { (data, response, error) in
             if let error = error {
                 return callback(.Failure(.RequestError(error.localizedDescription)))
             }
@@ -57,5 +60,14 @@ class AdService {
 
     func os() -> String {
         return UIDevice.currentDevice().systemVersion
+    }
+
+    func toJSON(object: NSDictionary) -> NSData {
+        do {
+            return try NSJSONSerialization.dataWithJSONObject(object, options: .PrettyPrinted)
+        } catch {
+            print("Error!")
+            return NSData()
+        }
     }
 }

@@ -1,5 +1,6 @@
 @objc public class TradeItAdConfig: NSObject {
     public static var apiKey: String?
+    public static var users: [[String: String]] = []
     public static var environment = TradeItAdEnvironment.QA
 
     static var baseUrl: String {
