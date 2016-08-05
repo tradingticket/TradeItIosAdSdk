@@ -11,17 +11,8 @@ public class TradeItAdView: UIView {
         xibSetup()
     }
 
-    // Helper for ObjC because it does not support default parameters
-    public func initializeWithAdType(adType: String) {
-        initializeWithAdType(adType, broker: nil, heightConstraint: nil)
-    }
-
-    public func initializeWithAdType(adType: String, heightConstraint: NSLayoutConstraint?) {
-        initializeWithAdType(adType, broker: nil, heightConstraint: heightConstraint)
-    }
-
-    public func initializeWithAdType(adType: String, broker: String? = nil, heightConstraint: NSLayoutConstraint?) {
-        let collapseHeightConstraintTo = { (height: CGFloat) -> Void in
+    public func configureWithAdType(adType: String, broker: String?, heightConstraint: NSLayoutConstraint?) {
+        let setHeightConstraintTo = { (height: CGFloat) -> Void in
             guard let heightConstraint = heightConstraint else { return }
             dispatch_async(dispatch_get_main_queue(), {
                 heightConstraint.constant = height
@@ -31,17 +22,31 @@ public class TradeItAdView: UIView {
         AdService.getAdForAdType(adType, broker: broker, callback: { (response: Result) -> Void in
             switch response {
             case let .Success(ad):
-                guard let url = ad["adUrl"] as? String else { return }
+                guard let adId = ad["adId"] as? Int else { return }
+                let url = "\(TradeItAdConfig.baseUrl)mobile/getAdUnit?placementId=\(adId)"
                 guard let nsurl = NSURL(string: url) else { return }
                 guard let height = ad["adHeight"] as? CGFloat else { return }
                 let requestObj = NSURLRequest(URL: nsurl)
                 self.webView.loadRequest(requestObj)
-                collapseHeightConstraintTo(height)
+                setHeightConstraintTo(height)
             case let .Failure(error):
                 TradeItAdConfig.log("\(error)")
-                collapseHeightConstraintTo(0)
+                setHeightConstraintTo(0)
             }
         })
+    }
+
+    /* Helpers are for ObjC because it does not support default parameters */
+    public func configureWithAdType(adType: String) {
+        configureWithAdType(adType)
+    }
+
+    public func configureWithAdType(adType: String, broker: String) {
+        configureWithAdType(adType, broker: broker)
+    }
+
+    public func configureWithAdType(adType: String, heightConstraint: NSLayoutConstraint?) {
+        configureWithAdType(adType, broker: nil, heightConstraint: heightConstraint)
     }
 
     func xibSetup() {

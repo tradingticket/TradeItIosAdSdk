@@ -1,5 +1,3 @@
-import Foundation
-
 enum Result {
     case Success([String: AnyObject])
     case Failure(TradeItAdError)
