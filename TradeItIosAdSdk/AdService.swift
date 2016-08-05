@@ -73,7 +73,7 @@ class AdService {
     }
 
     static func device() -> String {
-        return getDeviceInfo().stringByReplacingOccurrencesOfString(modelNumber(), withString: "")
+        return getDeviceInfo().stringByReplacingOccurrencesOfString(modelNumber(), withString: "").lowercaseString
     }
 
     static func getDeviceInfo() -> String {
