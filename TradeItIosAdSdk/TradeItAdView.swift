@@ -43,11 +43,11 @@ public class TradeItAdView: UIView {
 
     /* Helpers are for ObjC because it does not support default parameters */
     public func configureWithAdType(adType: String) {
-        configureWithAdType(adType)
+        configureWithAdType(adType, broker: nil, heightConstraint: nil)
     }
 
     public func configureWithAdType(adType: String, broker: String) {
-        configureWithAdType(adType, broker: broker)
+        configureWithAdType(adType, broker: broker, heightConstraint: nil)
     }
 
     public func configureWithAdType(adType: String, heightConstraint: NSLayoutConstraint?) {
