@@ -10,10 +10,10 @@ class AdService {
     static func getAllAds(callback: Result -> Void) {
         if let ads = ads { return callback(.Success(ads)) }
 
-        guard let apiKey = TradeItAdConfig.apiKey else { return }
+        guard let apiKey = TradeItAdConfig.apiKey else { return callback(.Failure(.MissingConfig("apiKey"))) }
         let endpoint = TradeItAdConfig.baseUrl + "mobile/getAllAdsInfo"
         let urlBuilderOptional = NSURLComponents(string: endpoint)
-        guard let url = urlBuilderOptional?.URL else { return }
+        guard let url = urlBuilderOptional?.URL else { return callback(.Failure(.RequestError("Endpoint invalid: \(endpoint)"))) }
         let object: NSDictionary = [
             "apiKey": apiKey,
             "users": TradeItAdConfig.users,
@@ -47,14 +47,37 @@ class AdService {
         task.resume()
     }
 
-    static func getAdForAdType(adType: String, broker: String?, callback: Result -> Void) {
+    static func getAdForAdType(adType: String, callback: Result -> Void) {
         getAllAds({(result: Result) in
             switch result {
             case let .Success(ads):
-                guard let adsForType = ads[adType] as? [String: AnyObject] else { return callback(.Failure(.UnknownError("No data in response for AdType: \(adType)"))) }
+                if let adsForType = ads[adType] as? [String: AnyObject] {
+                    return callback(.Success(adsForType))
+                } else if let adsForType = ads["general"] as? [String: AnyObject] {
+                    TradeItAdConfig.log("No data in response for adType: \(adType). Defaulting to: general")
+                    return callback(.Success(adsForType))
+                } else {
+                    return callback(.Failure(.MissingAdType("No data in response for adType: \(adType) or general")))
+                }
+            case let .Failure(error):
+                return callback(.Failure(error))
+            }
+        })
+    }
+
+    static func getAdForAdType(adType: String, broker: String?, callback: Result -> Void) {
+        getAdForAdType(adType, callback: {(result: Result) in
+            switch result {
+            case let .Success(ads):
                 let broker = broker ?? "all"
-                guard let adForBroker = adsForType[broker] as? [String: AnyObject] else { return callback(.Failure(.UnknownError("No data in response for AdType and Broker: \(adType) \(broker)"))) }
-                return callback(.Success(adForBroker))
+                if let adForBroker = ads[broker] as? [String: AnyObject] {
+                    return callback(.Success(adForBroker))
+                } else if let adForBroker = ads["all"] as? [String: AnyObject] {
+                    TradeItAdConfig.log("No data in response for broker: \(broker). Defaulting to: all")
+                    return callback(.Success(adForBroker))
+                } else {
+                    return callback(.Failure(.UnknownError("No data in response for broker: \(broker) or all")))
+                }
             case let .Failure(error):
                 return callback(.Failure(error))
             }
