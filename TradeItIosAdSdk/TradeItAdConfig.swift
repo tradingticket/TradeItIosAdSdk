@@ -4,6 +4,7 @@
     public static var environment = TradeItAdEnvironment.QA
     public static var debug = false
     public static var deviceInfoOverride: String?
+    public static var enabled = true
 
     static var baseUrl: String {
         switch environment {

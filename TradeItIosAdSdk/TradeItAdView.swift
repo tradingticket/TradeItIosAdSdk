@@ -19,21 +19,26 @@ public class TradeItAdView: UIView {
             })
         }
 
-        AdService.getAdForAdType(adType, broker: broker, callback: { (response: Result) -> Void in
-            switch response {
-            case let .Success(ad):
-                guard let adId = ad["adId"] as? Int else { return }
-                let url = "\(TradeItAdConfig.baseUrl)mobile/getAdUnit?placementId=\(adId)"
-                guard let nsurl = NSURL(string: url) else { return }
-                guard let height = ad["adHeight"] as? CGFloat else { return }
-                let requestObj = NSURLRequest(URL: nsurl)
-                self.webView.loadRequest(requestObj)
-                setHeightConstraintTo(height)
-            case let .Failure(error):
-                TradeItAdConfig.log("\(error)")
-                setHeightConstraintTo(0)
-            }
-        })
+        if(TradeItAdConfig.enabled) {
+            AdService.getAdForAdType(adType, broker: broker, callback: { (response: Result) -> Void in
+                switch response {
+                case let .Success(ad):
+                    guard let adId = ad["adId"] as? Int else { return }
+                    let url = "\(TradeItAdConfig.baseUrl)mobile/getAdUnit?placementId=\(adId)"
+                    guard let nsurl = NSURL(string: url) else { return }
+                    guard let height = ad["adHeight"] as? CGFloat else { return }
+                    let requestObj = NSURLRequest(URL: nsurl)
+                    self.webView.loadRequest(requestObj)
+                    setHeightConstraintTo(height)
+                case let .Failure(error):
+                    TradeItAdConfig.log("\(error)")
+                    setHeightConstraintTo(0)
+                }
+            })
+        } else {
+            TradeItAdConfig.log("Collapsing ad view because TradeItAdConfig.enabled is false")
+            setHeightConstraintTo(0)
+        }
     }
 
     /* Helpers are for ObjC because it does not support default parameters */
