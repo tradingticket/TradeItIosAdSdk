@@ -1,7 +1,7 @@
 @objc public class TradeItAdConfig: NSObject {
     public static var apiKey: String?
     public static var users: [[String: String]] = []
-    public static var environment = TradeItAdEnvironment.QA
+    public static var environment = TradeItAdEnvironment.Prod
     public static var debug = false
     public static var deviceInfoOverride: String?
     public static var enabled = true
