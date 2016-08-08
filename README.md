@@ -100,6 +100,10 @@ Provide the `heightConstraint` so that the view height can be adjusted.
 If the ad is a different size to the size you have set up, it will be adjusted to fit the ad content.
 If ads are disabled or the request to the ad server fail the ad view collapses to 0 height.
 
+## Example App
+
+The SDK includes an example Swift app target. To run, switch to the `Example App` target and click run.
+
 ## Debugging Configuration
 
 ##### `TradeItAdConfig.environment`
