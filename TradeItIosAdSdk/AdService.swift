@@ -31,17 +31,17 @@ class AdService {
         request.HTTPBody = toJSON(object)
 
         let task = session.dataTaskWithRequest(request) { (data, response, error) in
-            if let error = error { return TradeItAdConfig.log(error.localizedDescription) }
-            guard let responseData = data else { return TradeItAdConfig.log("Failed to read response") }
+            if let error = error { return callback(.Failure(.UnknownError(error.localizedDescription))) }
+            guard let responseData = data else { return callback(.Failure(.UnknownError("Failed to read response"))) }
 
             do {
                 let jsonResponse = try NSJSONSerialization.JSONObjectWithData(responseData, options: []) as? [String: AnyObject]
                 ads = jsonResponse?["admap"] as? [String: AnyObject]
                 guard let ads = ads else { return callback(.Failure(.JSONParseError)) }
                 TradeItAdConfig.log("\(ads)")
-                callback(.Success(ads))
-            } catch {
-                callback(.Failure(.UnknownError))
+                return callback(.Success(ads))
+            } catch let error {
+                return callback(.Failure(.UnknownError("\(error)")))
             }
         }
         task.resume()
@@ -51,12 +51,12 @@ class AdService {
         getAllAds({(result: Result) in
             switch result {
             case let .Success(ads):
-                guard let adsForType = ads[adType] as? [String: AnyObject] else { return callback(.Failure(.UnknownError)) }
+                guard let adsForType = ads[adType] as? [String: AnyObject] else { return callback(.Failure(.UnknownError("No data in response for AdType: \(adType)"))) }
                 let broker = broker ?? "all"
-                guard let adForBroker = adsForType[broker] as? [String: AnyObject] else { return callback(.Failure(.UnknownError)) }
-                callback(.Success(adForBroker))
+                guard let adForBroker = adsForType[broker] as? [String: AnyObject] else { return callback(.Failure(.UnknownError("No data in response for AdType and Broker: \(adType) \(broker)"))) }
+                return callback(.Success(adForBroker))
             case let .Failure(error):
-                callback(.Failure(error))
+                return callback(.Failure(error))
             }
         })
     }
