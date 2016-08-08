@@ -1,3 +1,5 @@
+import Foundation
+
 @objc public class TradeItAdConfig: NSObject {
     public static var apiKey: String?
     public static var users: [[String: String]] = []

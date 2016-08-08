@@ -1,3 +1,6 @@
+import Foundation
+import UIKit
+
 enum Result {
     case Success([String: AnyObject])
     case Failure(TradeItAdError)
