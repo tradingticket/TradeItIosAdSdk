@@ -33,6 +33,15 @@
 		7519E4031D591C4F0031DF50 /* AdService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 750FA0BB1D4BB6AA00CE8753 /* AdService.swift */; };
 		751A50661D527BE70091A171 /* TradeItAdConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 751A50651D527BE70091A171 /* TradeItAdConfig.swift */; };
 		751A50681D527C040091A171 /* TradeItAdEnvironment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 751A50671D527C040091A171 /* TradeItAdEnvironment.swift */; };
+		75297DF21D5A754700EC4C32 /* SSLPinningDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75297DF11D5A754700EC4C32 /* SSLPinningDelegate.swift */; };
+		75297DF31D5A754700EC4C32 /* SSLPinningDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75297DF11D5A754700EC4C32 /* SSLPinningDelegate.swift */; };
+		75297DF41D5A754700EC4C32 /* SSLPinningDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75297DF11D5A754700EC4C32 /* SSLPinningDelegate.swift */; };
+		75297DF71D5A851800EC4C32 /* server-prod.der in Resources */ = {isa = PBXBuildFile; fileRef = 75297DF51D5A851800EC4C32 /* server-prod.der */; };
+		75297DF81D5A851800EC4C32 /* server-prod.der in Resources */ = {isa = PBXBuildFile; fileRef = 75297DF51D5A851800EC4C32 /* server-prod.der */; };
+		75297DF91D5A851800EC4C32 /* server-prod.der in Resources */ = {isa = PBXBuildFile; fileRef = 75297DF51D5A851800EC4C32 /* server-prod.der */; };
+		75297DFA1D5A851800EC4C32 /* server-qa.der in Resources */ = {isa = PBXBuildFile; fileRef = 75297DF61D5A851800EC4C32 /* server-qa.der */; };
+		75297DFB1D5A851800EC4C32 /* server-qa.der in Resources */ = {isa = PBXBuildFile; fileRef = 75297DF61D5A851800EC4C32 /* server-qa.der */; };
+		75297DFC1D5A851800EC4C32 /* server-qa.der in Resources */ = {isa = PBXBuildFile; fileRef = 75297DF61D5A851800EC4C32 /* server-qa.der */; };
 		758929C21D50E841004DC908 /* TradeItAdError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 758929C11D50E841004DC908 /* TradeItAdError.swift */; };
 /* End PBXBuildFile section */
 
@@ -75,6 +84,9 @@
 		7519E3F11D591B6B0031DF50 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		751A50651D527BE70091A171 /* TradeItAdConfig.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TradeItAdConfig.swift; sourceTree = "<group>"; };
 		751A50671D527C040091A171 /* TradeItAdEnvironment.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TradeItAdEnvironment.swift; sourceTree = "<group>"; };
+		75297DF11D5A754700EC4C32 /* SSLPinningDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SSLPinningDelegate.swift; sourceTree = "<group>"; };
+		75297DF51D5A851800EC4C32 /* server-prod.der */ = {isa = PBXFileReference; lastKnownFileType = file; name = "server-prod.der"; path = "TradeItIosAdSdk/Resources/server-prod.der"; sourceTree = "<group>"; };
+		75297DF61D5A851800EC4C32 /* server-qa.der */ = {isa = PBXFileReference; lastKnownFileType = file; name = "server-qa.der"; path = "TradeItIosAdSdk/Resources/server-qa.der"; sourceTree = "<group>"; };
 		758929C11D50E841004DC908 /* TradeItAdError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TradeItAdError.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -115,6 +127,7 @@
 			isa = PBXGroup;
 			children = (
 				750FA0BB1D4BB6AA00CE8753 /* AdService.swift */,
+				75297DF11D5A754700EC4C32 /* SSLPinningDelegate.swift */,
 			);
 			name = Services;
 			sourceTree = "<group>";
@@ -122,6 +135,7 @@
 		7517A38D1D4A945500D52880 = {
 			isa = PBXGroup;
 			children = (
+				75297DF01D5A745C00EC4C32 /* Resources */,
 				7517A3991D4A945500D52880 /* TradeItIosAdSdk */,
 				7517A3A51D4A945500D52880 /* TradeItIosAdSdkTests */,
 				7519E3D91D591B6A0031DF50 /* ExampleApp */,
@@ -185,6 +199,15 @@
 				7519E3F11D591B6B0031DF50 /* Info.plist */,
 			);
 			path = ExampleAppUITests;
+			sourceTree = "<group>";
+		};
+		75297DF01D5A745C00EC4C32 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				75297DF51D5A851800EC4C32 /* server-prod.der */,
+				75297DF61D5A851800EC4C32 /* server-qa.der */,
+			);
+			name = Resources;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -325,7 +348,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				75297DFA1D5A851800EC4C32 /* server-qa.der in Resources */,
 				750FA0AD1D4AAD8800CE8753 /* TradeItAdView.xib in Resources */,
+				75297DF71D5A851800EC4C32 /* server-prod.der in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -333,7 +358,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				75297DFB1D5A851800EC4C32 /* server-qa.der in Resources */,
 				7519E3FD1D591C440031DF50 /* TradeItAdView.xib in Resources */,
+				75297DF81D5A851800EC4C32 /* server-prod.der in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -341,6 +368,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				75297DFC1D5A851800EC4C32 /* server-qa.der in Resources */,
+				75297DF91D5A851800EC4C32 /* server-prod.der in Resources */,
 				7519E3E51D591B6A0031DF50 /* LaunchScreen.storyboard in Resources */,
 				7519E3E21D591B6A0031DF50 /* Assets.xcassets in Resources */,
 				7519E3E01D591B6A0031DF50 /* Main.storyboard in Resources */,
@@ -367,6 +396,7 @@
 				751A50681D527C040091A171 /* TradeItAdEnvironment.swift in Sources */,
 				758929C21D50E841004DC908 /* TradeItAdError.swift in Sources */,
 				750FA0AF1D4AAEE000CE8753 /* TradeItAdView.swift in Sources */,
+				75297DF21D5A754700EC4C32 /* SSLPinningDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -379,6 +409,7 @@
 				7519E4011D591C440031DF50 /* TradeItAdEnvironment.swift in Sources */,
 				7519E3FF1D591C440031DF50 /* TradeItAdError.swift in Sources */,
 				7519E4031D591C4F0031DF50 /* AdService.swift in Sources */,
+				75297DF31D5A754700EC4C32 /* SSLPinningDelegate.swift in Sources */,
 				7519E3FE1D591C440031DF50 /* TradeItAdView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -390,6 +421,7 @@
 				7519E3FC1D591C390031DF50 /* TradeItAdEnvironment.swift in Sources */,
 				7519E4021D591C4F0031DF50 /* AdService.swift in Sources */,
 				7519E3DD1D591B6A0031DF50 /* ViewController.swift in Sources */,
+				75297DF41D5A754700EC4C32 /* SSLPinningDelegate.swift in Sources */,
 				7519E3F91D591C390031DF50 /* TradeItAdView.swift in Sources */,
 				7519E3DB1D591B6A0031DF50 /* AppDelegate.swift in Sources */,
 				7519E3FB1D591C390031DF50 /* TradeItAdConfig.swift in Sources */,
@@ -687,6 +719,7 @@
 				7519E3F31D591B6B0031DF50 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		7519E3F71D591B6B0031DF50 /* Build configuration list for PBXNativeTarget "ExampleAppUITests" */ = {
 			isa = XCConfigurationList;
@@ -695,6 +728,7 @@
 				7519E3F51D591B6B0031DF50 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

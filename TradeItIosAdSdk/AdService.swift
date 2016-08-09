@@ -26,7 +26,7 @@ class AdService {
             "width": width()
         ]
         let config = NSURLSessionConfiguration.defaultSessionConfiguration()
-        let session = NSURLSession(configuration: config)
+        let session = NSURLSession(configuration: config, delegate: SSLPinningDelegate(), delegateQueue: nil)
 
         let request = NSMutableURLRequest(URL: url)
         request.HTTPMethod = "POST"
