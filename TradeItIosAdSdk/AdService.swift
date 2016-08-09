@@ -22,7 +22,8 @@ class AdService {
             "users": TradeItAdConfig.users,
             "device": device(),
             "modelNumber": modelNumber(),
-            "os": os()
+            "os": os(),
+            "width": width()
         ]
         let config = NSURLSessionConfiguration.defaultSessionConfiguration()
         let session = NSURLSession(configuration: config)
@@ -118,6 +119,10 @@ class AdService {
 
     static func os() -> String {
         return UIDevice.currentDevice().systemVersion
+    }
+
+    static func width() -> CGFloat {
+        return UIScreen.mainScreen().bounds.width
     }
 
     static func toJSON(object: NSDictionary) -> NSData {
