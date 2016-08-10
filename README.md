@@ -10,8 +10,8 @@ A library that provides tools for adding ads to your iOS apps using the TradeIt 
 1. Right click your project in xcode
 1. Click `Add files to...`
 1. Add `TradeItIosAdSdk.xcodeproj` from the submodule
-1. Click your project in xcode and go to `Build Phases`
-1. Add `TradeItIosAdSdk.framework` in the `Target Dependencies` section
+1. Click your project in the xcode project browser
+1. On the General tab, under Embedded Binaries add `TradeItIosAdSdk.framework`
 
 This is the preferred method of including the SDK in your project until the Cocoapods release.
 
