@@ -21,4 +21,16 @@ import Foundation
             print("[TradeItAdSdk] \(message)")
         }
     }
+
+    static func pathToPinnedServerCertificate() -> String? {
+        let bundle = NSBundle(forClass: TradeItAdConfig().dynamicType)
+        let file = { () -> String? in
+            switch(environment) {
+            case .Prod: return "server-prod"
+            case .QA: return "server-qa"
+            default: return nil
+            }
+        }()
+        return bundle.pathForResource(file, ofType: "der")
+    }
 }
