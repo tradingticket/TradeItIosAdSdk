@@ -11,6 +11,11 @@ public class TradeItAdView: UIView {
         xibSetup()
     }
 
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        xibSetup()
+    }
+
     public func configureWithAdType(adType: String, broker: String?, heightConstraint: NSLayoutConstraint?) {
         let setHeightConstraintTo = { (height: CGFloat) -> Void in
             guard let heightConstraint = heightConstraint else { return }
