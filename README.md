@@ -12,7 +12,6 @@ A library that provides tools for adding ads to your iOS apps using the TradeIt 
 1. Add `TradeItIosAdSdk.xcodeproj` from the submodule
 1. Click your project in xcode and go to `Build Phases`
 1. Add `TradeItIosAdSdk.framework` in the `Target Dependencies` section
-1. Add `TradeItAdView.xib` in the `Copy Bundle Resources` section
 
 This is the preferred method of including the SDK in your project until the Cocoapods release.
 
@@ -22,8 +21,17 @@ Coming soon
 
 ## Global Configuration
 
+### Swift
+
 1. Add `import TradeItIosAdSdk` to your imports
-1. Set the API key with `TradeItAdConfig.apiKey = ""` when your application loads, before any ads are displayed
+1. Set the API key with `TradeItAdConfig.apiKey = ""` when your application loads, before any ads are displayed. Your AppDelegate's `appDidFinishLaunching` is the recommended place.
+1. Set the environment with `TradeItAdConfig.environment = .QA` while in development and then switch to `.Prod` for release
+
+### Objective-C
+
+1. Add `#import <TradeItIosAdSdk/TradeItIosAdSdk-Swift.h>` to your imports
+1. Set the API key with `TradeItAdConfig.apiKey = "";` when your application loads, before any ads are displayed. Your AppDelegate's `appDidFinishLaunching` is the recommended place.
+1. Set the environment with `TradeItAdConfig.environment = TradeItEnvironmentQA;` while in development and then switch to `TradeItEnvironmentProd` for release
 
 ## Adding the view
 
