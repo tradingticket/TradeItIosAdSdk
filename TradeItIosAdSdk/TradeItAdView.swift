@@ -24,7 +24,7 @@ public class TradeItAdView: UIView {
             })
         }
 
-        if(TradeItAdConfig.enabled) {
+        if (TradeItAdConfig.enabled) {
             AdService.getAdForAdType(adType, broker: broker, callback: { (response: Result) -> Void in
                 switch response {
                 case let .Success(ad):
@@ -70,7 +70,12 @@ public class TradeItAdView: UIView {
     }
 
     func loadViewFromNib() -> UIView {
-        return NSBundle(forClass: self.dynamicType).loadNibNamed("TradeItAdView", owner: self, options: nil)[0] as! UIView
+        if let bundle = NSBundle.init(identifier: "org.cocoapods.TradeItIosAdSdk") {
+            return bundle.loadNibNamed("TradeItAdView", owner: self, options: nil)[0] as! UIView
+        } else {
+            print("Fatal Error: Could not load TradeItAdView nib from TradeItIosAdSdk")
+            return UIView()
+        }
     }
 }
 
