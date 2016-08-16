@@ -4,20 +4,31 @@ A library that provides tools for adding ads to your iOS apps using the TradeIt 
 
 ## Installation
 
-### Git Submodule
-
-1. In the root of the project run `git submodule add git@github.com:tradingticket/TradeItIosAdSdk.git`
-1. Right click your project in xcode
-1. Click `Add files to...`
-1. Add `TradeItIosAdSdk.xcodeproj` from the submodule
-1. Click your project in the xcode project browser
-1. On the General tab, under Embedded Binaries add `TradeItIosAdSdk.framework`
-
-This is the preferred method of including the SDK in your project until the Cocoapods release.
-
 ### Cocoapods
+Follow the [Cocoapods: Getting started guide](https://guides.cocoapods.org/using/getting-started.html) and [Cocoapods: Using Cocoapods guide](https://guides.cocoapods.org/using/using-cocoapods.html) if you've never used Cocoapods before.
 
-Coming soon
+Inside your `Podfile` you need to add the TradeIt spec repo as a source:
+
+```ruby
+source 'https://github.com/tradingticket/SpecRepo'
+```
+
+Under your project target add our Ticket SDK pod as a dependency:
+
+```ruby
+pod 'TradeItIosAdSdk', '0.1.1'
+```
+
+This is a base example of what it should look like:
+
+```ruby
+source 'https://github.com/tradingticket/SpecRepo'
+
+target 'YourProjectTargetName' do
+  use_frameworks!
+  pod 'TradeItIosAdSdk', '0.1.1'
+end
+```
 
 ## Global Configuration
 
