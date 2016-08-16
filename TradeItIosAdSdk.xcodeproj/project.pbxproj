@@ -43,6 +43,8 @@
 		75297DFB1D5A851800EC4C32 /* server-qa.der in Resources */ = {isa = PBXBuildFile; fileRef = 75297DF61D5A851800EC4C32 /* server-qa.der */; };
 		75297DFC1D5A851800EC4C32 /* server-qa.der in Resources */ = {isa = PBXBuildFile; fileRef = 75297DF61D5A851800EC4C32 /* server-qa.der */; };
 		758929C21D50E841004DC908 /* TradeItAdError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 758929C11D50E841004DC908 /* TradeItAdError.swift */; };
+		FAE069D91D63D5740073A5A4 /* BundleProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAE069D81D63D5740073A5A4 /* BundleProvider.swift */; };
+		FAE069DA1D63D5770073A5A4 /* BundleProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAE069D81D63D5740073A5A4 /* BundleProvider.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -88,6 +90,7 @@
 		75297DF51D5A851800EC4C32 /* server-prod.der */ = {isa = PBXFileReference; lastKnownFileType = file; name = "server-prod.der"; path = "TradeItIosAdSdk/Resources/server-prod.der"; sourceTree = "<group>"; };
 		75297DF61D5A851800EC4C32 /* server-qa.der */ = {isa = PBXFileReference; lastKnownFileType = file; name = "server-qa.der"; path = "TradeItIosAdSdk/Resources/server-qa.der"; sourceTree = "<group>"; };
 		758929C11D50E841004DC908 /* TradeItAdError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TradeItAdError.swift; sourceTree = "<group>"; };
+		FAE069D81D63D5740073A5A4 /* BundleProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BundleProvider.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -158,6 +161,7 @@
 		7517A3991D4A945500D52880 /* TradeItIosAdSdk */ = {
 			isa = PBXGroup;
 			children = (
+				FAE069D81D63D5740073A5A4 /* BundleProvider.swift */,
 				750FA0BA1D4BB68000CE8753 /* Services */,
 				7517A39A1D4A945500D52880 /* TradeItIosAdSdk.h */,
 				7517A39C1D4A945500D52880 /* Info.plist */,
@@ -393,6 +397,7 @@
 			files = (
 				751A50661D527BE70091A171 /* TradeItAdConfig.swift in Sources */,
 				750FA0BC1D4BB6AA00CE8753 /* AdService.swift in Sources */,
+				FAE069D91D63D5740073A5A4 /* BundleProvider.swift in Sources */,
 				751A50681D527C040091A171 /* TradeItAdEnvironment.swift in Sources */,
 				758929C21D50E841004DC908 /* TradeItAdError.swift in Sources */,
 				750FA0AF1D4AAEE000CE8753 /* TradeItAdView.swift in Sources */,
@@ -419,6 +424,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				7519E3FC1D591C390031DF50 /* TradeItAdEnvironment.swift in Sources */,
+				FAE069DA1D63D5770073A5A4 /* BundleProvider.swift in Sources */,
 				7519E4021D591C4F0031DF50 /* AdService.swift in Sources */,
 				7519E3DD1D591B6A0031DF50 /* ViewController.swift in Sources */,
 				75297DF41D5A754700EC4C32 /* SSLPinningDelegate.swift in Sources */,

@@ -3,6 +3,7 @@ import UIKit
 public class TradeItAdView: UIView {
     @IBOutlet var webView: UIWebView!
     @IBOutlet var view: UIView!
+    let bundleProvider = BundleProvider()
 
     let webViewDelegate: WebViewDelegate = WebViewDelegate()
 
@@ -69,12 +70,13 @@ public class TradeItAdView: UIView {
         addSubview(view)
     }
 
-    func loadViewFromNib() -> UIView {
-        if let bundle = NSBundle.init(identifier: "org.cocoapods.TradeItIosAdSdk") {
-            return bundle.loadNibNamed("TradeItAdView", owner: self, options: nil)[0] as! UIView
+    func loadViewFromNib() {
+        let bundle = bundleProvider.provideBundle(withName: "TradeItIosAdSdk")
+
+        if bundle.pathForResource("TradeItAdView", ofType: "nib") != nil {
+            bundle.loadNibNamed("TradeItAdView", owner: self, options: nil)
         } else {
-            print("Fatal Error: Could not load TradeItAdView nib from TradeItIosAdSdk")
-            return UIView()
+            print("Error: Could not load TradeItAdView nib")
         }
     }
 }
