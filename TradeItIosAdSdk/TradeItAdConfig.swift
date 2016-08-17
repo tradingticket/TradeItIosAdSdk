@@ -7,6 +7,7 @@ import Foundation
     public static var debug = false
     public static var deviceInfoOverride: String?
     public static var enabled = true
+    static let bundleProvider = BundleProvider()
 
     static var baseUrl: String {
         switch environment {
@@ -23,7 +24,7 @@ import Foundation
     }
 
     static func pathToPinnedServerCertificate() -> String? {
-        let bundle = NSBundle(forClass: TradeItAdConfig().dynamicType)
+        let bundle = bundleProvider.provideBundle(withName: "TradeItIosAdSdk")
         let file = { () -> String? in
             switch(environment) {
             case .Prod: return "server-prod"
