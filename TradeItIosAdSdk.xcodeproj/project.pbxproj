@@ -311,6 +311,7 @@
 				TargetAttributes = {
 					7517A3961D4A945500D52880 = {
 						CreatedOnToolsVersion = 7.3.1;
+						LastSwiftMigration = 0800;
 					};
 					7517A3A01D4A945500D52880 = {
 						CreatedOnToolsVersion = 7.3.1;
@@ -592,6 +593,7 @@
 				SKIP_INSTALL = YES;
 				SWIFT_OBJC_BRIDGING_HEADER = "";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 2.3;
 			};
 			name = Debug;
 		};
@@ -614,6 +616,7 @@
 				PROVISIONING_PROFILE = "";
 				SKIP_INSTALL = YES;
 				SWIFT_OBJC_BRIDGING_HEADER = "";
+				SWIFT_VERSION = 2.3;
 			};
 			name = Release;
 		};
