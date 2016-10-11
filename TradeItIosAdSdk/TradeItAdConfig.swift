@@ -1,23 +1,23 @@
 import Foundation
 
-@objc public class TradeItAdConfig: NSObject {
-    public static var apiKey: String?
-    public static var users: [[String: String]] = []
-    public static var environment = TradeItAdEnvironment.Prod
-    public static var debug = false
-    public static var deviceInfoOverride: String?
-    public static var enabled = true
+@objc open class TradeItAdConfig: NSObject {
+    open static var apiKey: String?
+    open static var users: [[String: String]] = []
+    open static var environment = TradeItAdEnvironment.prod
+    open static var debug = false
+    open static var deviceInfoOverride: String?
+    open static var enabled = true
     static let bundleProvider = BundleProvider()
 
     static var baseUrl: String {
         switch environment {
-        case .Local: return "http://localhost:8080/ad/v1/"
-        case .QA: return "https://ems.qa.tradingticket.com/ad/v1/"
+        case .local: return "http://localhost:8080/ad/v1/"
+        case .qa: return "https://ems.qa.tradingticket.com/ad/v1/"
         default: return "https://ems.tradingticket.com/ad/v1/"
         }
     }
 
-    static func log(message: String) {
+    static func log(_ message: String) {
         if debug {
             print("[TradeItAdSdk] \(message)")
         }
@@ -27,11 +27,11 @@ import Foundation
         let bundle = bundleProvider.provideBundle(withName: "TradeItIosAdSdk")
         let file = { () -> String? in
             switch(environment) {
-            case .Prod: return "server-prod"
-            case .QA: return "server-qa"
+            case .prod: return "server-prod"
+            case .qa: return "server-qa"
             default: return nil
             }
         }()
-        return bundle.pathForResource(file, ofType: "der")
+        return bundle.path(forResource: file, ofType: "der")
     }
 }

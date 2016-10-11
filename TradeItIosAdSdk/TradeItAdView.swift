@@ -1,6 +1,6 @@
 import UIKit
 
-public class TradeItAdView: UIView {
+open class TradeItAdView: UIView {
     @IBOutlet var webView: UIWebView!
     @IBOutlet var view: UIView!
     let bundleProvider = BundleProvider()
@@ -17,10 +17,10 @@ public class TradeItAdView: UIView {
         xibSetup()
     }
 
-    public func configureWithAdType(adType: String, broker: String?, heightConstraint: NSLayoutConstraint?) {
+    open func configureWithAdType(_ adType: String, broker: String?, heightConstraint: NSLayoutConstraint?) {
         let setHeightConstraintTo = { (height: CGFloat) -> Void in
             guard let heightConstraint = heightConstraint else { return }
-            dispatch_async(dispatch_get_main_queue(), {
+            DispatchQueue.main.async(execute: {
                 heightConstraint.constant = height
             })
         }
@@ -28,15 +28,15 @@ public class TradeItAdView: UIView {
         if (TradeItAdConfig.enabled) {
             AdService.getAdForAdType(adType, broker: broker, callback: { (response: Result) -> Void in
                 switch response {
-                case let .Success(ad):
+                case let .success(ad):
                     guard let adId = ad["adId"] as? Int else { return }
                     let url = "\(TradeItAdConfig.baseUrl)mobile/getAdUnit?placementId=\(adId)"
-                    guard let nsurl = NSURL(string: url) else { return }
+                    guard let nsurl = URL(string: url) else { return }
                     guard let height = ad["adHeight"] as? CGFloat else { return }
-                    let requestObj = NSURLRequest(URL: nsurl)
+                    let requestObj = URLRequest(url: nsurl)
                     self.webView.loadRequest(requestObj)
                     setHeightConstraintTo(height)
-                case let .Failure(error):
+                case let .failure(error):
                     TradeItAdConfig.log("\(error)")
                     setHeightConstraintTo(0)
                 }
@@ -48,15 +48,15 @@ public class TradeItAdView: UIView {
     }
 
     /* Helpers are for ObjC because it does not support default parameters */
-    public func configureWithAdType(adType: String) {
+    open func configureWithAdType(_ adType: String) {
         configureWithAdType(adType, broker: nil, heightConstraint: nil)
     }
 
-    public func configureWithAdType(adType: String, broker: String) {
+    open func configureWithAdType(_ adType: String, broker: String) {
         configureWithAdType(adType, broker: broker, heightConstraint: nil)
     }
 
-    public func configureWithAdType(adType: String, heightConstraint: NSLayoutConstraint?) {
+    open func configureWithAdType(_ adType: String, heightConstraint: NSLayoutConstraint?) {
         configureWithAdType(adType, broker: nil, heightConstraint: heightConstraint)
     }
 
@@ -64,7 +64,7 @@ public class TradeItAdView: UIView {
         loadViewFromNib()
         view.frame = bounds
         webView.frame = bounds
-        webView.scrollView.scrollEnabled = false
+        webView.scrollView.isScrollEnabled = false
         webView.scrollView.bounces = false
         webView.delegate = webViewDelegate
         addSubview(view)
@@ -73,7 +73,7 @@ public class TradeItAdView: UIView {
     func loadViewFromNib() {
         let bundle = bundleProvider.provideBundle(withName: "TradeItIosAdSdk")
 
-        if bundle.pathForResource("TradeItAdView", ofType: "nib") != nil {
+        if bundle.path(forResource: "TradeItAdView", ofType: "nib") != nil {
             bundle.loadNibNamed("TradeItAdView", owner: self, options: nil)
         } else {
             print("Error: Could not load TradeItAdView nib")
@@ -82,11 +82,11 @@ public class TradeItAdView: UIView {
 }
 
 class WebViewDelegate: NSObject, UIWebViewDelegate {
-    @objc func webView(webView: UIWebView, shouldStartLoadWithRequest request: NSURLRequest, navigationType: UIWebViewNavigationType) -> Bool {
+    @objc func webView(_ webView: UIWebView, shouldStartLoadWith request: URLRequest, navigationType: UIWebViewNavigationType) -> Bool {
         // Clicking on the ad doesn't trigger a navigationType = .LinkClicked
-        guard let url = request.URL else { return true }
+        guard let url = request.url else { return true }
         if url.host == "adclick.g.doubleclick.net" {
-            UIApplication.sharedApplication().openURL(url)
+            UIApplication.shared.openURL(url)
             return false
         }
         return true
