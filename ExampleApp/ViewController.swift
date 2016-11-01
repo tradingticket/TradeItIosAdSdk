@@ -8,8 +8,8 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         TradeItAdConfig.debug = true
         TradeItAdConfig.apiKey = "tradeit-test-api-key"
-        TradeItAdConfig.environment = .QA
-        self.adView.configureWithAdType("general", heightConstraint: self.adViewHeightConstraint)
+        TradeItAdConfig.environment = .qa
+        self.adView.configure(withAdType: "general", heightConstraint: self.adViewHeightConstraint)
     }
 }
 

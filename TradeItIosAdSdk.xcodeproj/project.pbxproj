@@ -319,9 +319,11 @@
 					7519E3D71D591B6A0031DF50 = {
 						CreatedOnToolsVersion = 7.3.1;
 						DevelopmentTeam = C5Z385S54U;
+						LastSwiftMigration = 0800;
 					};
 					7519E3EA1D591B6B0031DF50 = {
 						CreatedOnToolsVersion = 7.3.1;
+						LastSwiftMigration = 0800;
 						TestTargetID = 7519E3D71D591B6A0031DF50;
 					};
 				};
@@ -651,6 +653,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = TradeIt.ExampleApp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
+				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
 		};
@@ -665,6 +668,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = TradeIt.ExampleApp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
+				SWIFT_VERSION = 3.0;
 			};
 			name = Release;
 		};
@@ -675,6 +679,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = TradeIt.ExampleAppUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
 				TEST_TARGET_NAME = ExampleApp;
 			};
 			name = Debug;
@@ -686,6 +691,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = TradeIt.ExampleAppUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
 				TEST_TARGET_NAME = ExampleApp;
 			};
 			name = Release;
