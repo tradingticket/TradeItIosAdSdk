@@ -16,7 +16,7 @@ source 'https://github.com/tradingticket/SpecRepo'
 Under your project target add our Ticket SDK pod as a dependency:
 
 ```ruby
-pod 'TradeItIosAdSdk', '0.1.1'
+pod 'TradeItIosAdSdk', '~> 0.2.0'
 ```
 
 This is a base example of what it should look like:
@@ -26,7 +26,7 @@ source 'https://github.com/tradingticket/SpecRepo'
 
 target 'YourProjectTargetName' do
   use_frameworks!
-  pod 'TradeItIosAdSdk', '0.1.1'
+  pod 'TradeItIosAdSdk', '~> 0.2.0'
 end
 ```
 
@@ -36,13 +36,13 @@ end
 
 1. Add `import TradeItIosAdSdk` to your imports
 1. Set the API key with `TradeItAdConfig.apiKey = ""` when your application loads, before any ads are displayed. Your AppDelegate's `appDidFinishLaunching` is the recommended place.
-1. Set the environment with `TradeItAdConfig.environment = .QA` while in development and then switch to `.Prod` for release
+1. Set the environment with `TradeItAdConfig.environment = .qa` while in development and then switch to `.prod` for release
 
 ### Objective-C
 
 1. Add `#import <TradeItIosAdSdk/TradeItIosAdSdk-Swift.h>` to your imports
 1. Set the API key with `TradeItAdConfig.apiKey = "";` when your application loads, before any ads are displayed. Your AppDelegate's `appDidFinishLaunching` is the recommended place.
-1. Set the environment with `TradeItAdConfig.environment = TradeItEnvironmentQA;` while in development and then switch to `TradeItEnvironmentProd` for release
+1. Set the environment with `TradeItAdConfig.environment = TradeItEnvironmentQa;` while in development and then switch to `TradeItEnvironmentProd` for release
 
 ## Adding the view
 
@@ -87,16 +87,16 @@ There are helpers for configuring the view. Only the Ad Type is required.
 
 ```swift
 // Ad Type
-adView.configureWithAdType("general")
+adView.configure(withAdType: "general")
 
 // Ad Type and Broker
-adView.configureWithAdType("general", broker: "Dummy")
+adView.configure(withAdType: "general", broker: "Dummy")
 
 // Ad Type and Height Constraint
-adView.configureWithAdType("general", heightConstraint: adViewHeightConstraint)
+adView.configure(withAdType: "general", heightConstraint: adViewHeightConstraint)
 
 // Ad Type, Broker and Height Constraint
-adView.configureWithAdType("general", broker: "Dummy", heightConstraint: adViewHeightConstraint)
+adView.configure(withAdType: "general", broker: "Dummy", heightConstraint: adViewHeightConstraint)
 ```
 
 ##### Ad Types
@@ -127,9 +127,9 @@ The SDK includes an example Swift app target. To run, switch to the `Example App
 
 ##### `TradeItAdConfig.environment`
 
-*Default*: `TradeItAdEnvironment.Prod`
+*Default*: `TradeItAdEnvironment.prod`
 
-Determines which TradeIt environment to hit. This can be set to `.Prod` or `.QA`.
+Determines which TradeIt environment to hit. This can be set to `.prod` or `.qa`.
 
 ##### `TradeItAdConfig.debug`
 
