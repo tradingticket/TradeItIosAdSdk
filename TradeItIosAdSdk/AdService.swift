@@ -23,7 +23,8 @@ class AdService {
             "device": device(),
             "modelNumber": modelNumber(),
             "os": os(),
-            "width": width()
+            "width": width(),
+            "deviceId": deviceId()
         ]
         let config = URLSessionConfiguration.default
         let session = URLSession(configuration: config, delegate: SSLPinningDelegate(), delegateQueue: nil)
@@ -123,6 +124,10 @@ class AdService {
 
     static func width() -> CGFloat {
         return UIScreen.main.bounds.width
+    }
+
+    static func deviceId() -> String {
+        return UIDevice.current.identifierForVendor?.uuidString ?? ""
     }
 
     static func toJSON(_ object: NSDictionary) -> Data {
