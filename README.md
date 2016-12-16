@@ -75,8 +75,10 @@ NSArray *linkedLogins = [connector getLinkedLogins];
 NSMutableArray *users = [[NSMutableArray alloc] init];
 for (TradeItLinkedLogin *linkedLogin in linkedLogins) {
   NSString *userToken = [connector userTokenFromKeychainId:linkedLogin.keychainId];
-  NSDictionary *user = @{ @"userId": linkedLogin.userId, @"userToken": userToken };
-  [users addObject:user];
+  if (userToken.length > 0) {
+    NSDictionary *user = @{ @"userId": linkedLogin.userId, @"userToken": userToken };
+    [users addObject:user];
+  }
 }
 TradeItAdConfig.users = users;
 ```
