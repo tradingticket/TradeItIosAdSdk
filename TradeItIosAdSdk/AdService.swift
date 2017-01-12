@@ -1,5 +1,6 @@
 import Foundation
 import UIKit
+import AdSupport
 
 enum Result {
     case success([String: AnyObject])
@@ -19,12 +20,12 @@ class AdService {
         guard let url = urlBuilderOptional?.url else { return callback(.failure(.requestError("Endpoint invalid: \(endpoint)"))) }
         let object: NSDictionary = [
             "apiKey": apiKey,
-            "users": TradeItAdConfig.users,
+            "users": users(),
             "device": device(),
             "modelNumber": modelNumber(),
             "os": os(),
             "width": width(),
-            "deviceId": deviceId()
+            "deviceId": advertisingIdentifier()
         ]
         let config = URLSessionConfiguration.default
         let session = URLSession(configuration: config, delegate: SSLPinningDelegate(), delegateQueue: nil)
@@ -126,8 +127,16 @@ class AdService {
         return UIScreen.main.bounds.width
     }
 
-    static func deviceId() -> String {
-        return UIDevice.current.identifierForVendor?.uuidString ?? ""
+    static func advertisingIdentifier() -> String {
+        return ASIdentifierManager.shared().advertisingIdentifier.uuidString
+    }
+
+    static func users() -> [[String: String]] {
+        if ASIdentifierManager.shared().isAdvertisingTrackingEnabled {
+            return TradeItAdConfig.users
+        } else {
+            return []
+        }
     }
 
     static func toJSON(_ object: NSDictionary) -> Data {

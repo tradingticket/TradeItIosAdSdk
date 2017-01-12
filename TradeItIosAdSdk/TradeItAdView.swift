@@ -30,8 +30,8 @@ public class TradeItAdView: UIView {
                 switch response {
                 case let .success(ad):
                     guard let adId = ad["adId"] as? Int else { return }
-                    let deviceId = AdService.deviceId()
-                    let url = "\(TradeItAdConfig.baseUrl)mobile/getAdUnit?placementId=\(adId)&deviceId=\(deviceId)"
+                    let advertisingIdentifier = AdService.advertisingIdentifier()
+                    let url = "\(TradeItAdConfig.baseUrl)mobile/getAdUnit?placementId=\(adId)&deviceId=\(advertisingIdentifier)"
                     guard let nsurl = URL(string: url) else { return }
                     guard let height = ad["adHeight"] as? CGFloat else { return }
                     let requestObj = URLRequest(url: nsurl)
